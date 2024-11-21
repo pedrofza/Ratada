@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<robot name="micromouse_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="common/links/body.xacro" />
+<xacro:include filename="common/links/wheel.xacro" />
+<xacro:include filename="common/links/caster.xacro" />
+
+<xacro:property name="body_link_x_dim" value="0.12"/>
+<xacro:property name="body_link_y_dim" value="0.096"/> <!-- wheel to wheel -->
+<xacro:property name="body_link_z_dim" value="0.02"/>
+<xacro:property name="body_density" value="2000.0"/>
+
+<xacro:property name="wheel_link_radius" value="0.016"/>
+<xacro:property name="wheel_link_length" value="0.01"/>
+<xacro:property name="wheel_link_x_location" value="0"/>
+<xacro:property name="wheel_link_y_location_abs" value="${body_link_y_dim/2 + wheel_link_length/2}"/>
+<xacro:property name="wheel_link_z_location" value="0"/>
+<xacro:property name="wheel_separation" value="${2*wheel_link_y_location_abs - wheel_link_length}"/>
+<xacro:property name="wheel_density" value="2000.0"/>
+
+<xacro:property name="caster_link_radius" value="0.005"/>
+<xacro:property name="caster_link_x_location" value="${-body_link_x_dim / 2.5}"/>
+<xacro:property name="caster_link_y_location" value="0"/>
+<xacro:property name="caster_link_z_location" value="${-body_link_z_dim / 2}"/>
+<xacro:property name="caster_density" value="2000.0"/>
+
+<xacro:property name="extra_weight_x" value="${-body_link_x_dim/8}"/>
+<xacro:property name="extra_weight_z" value="${body_link_z_dim/2 + 0.002}"/>
+<xacro:property name="extra_weight_link_x_dim" value="${body_link_x_dim/4}"/>
+<xacro:property name="extra_weight_link_y_dim" value="${body_link_y_dim}"/>
+<xacro:property name="extra_weight_link_z_dim" value="${(body_link_z_dim - extra_weight_z) / 2}"/>
+<xacro:property name="extra_density" value="10000.0"/>
+
+<xacro:property name="sensor_lidar_x_location" value="${body_link_x_dim/2}"/>
+<xacro:property name="sensor_lidar_z_location" value="0"/>
+
+<xacro:property name="imu_x_location" value="0"/>
+<xacro:property name="imu_y_location" value="0"/>
+<xacro:property name="imu_z_location" value="0"/>
+
+<xacro:include filename="micromouse_robot.gazebo.xacro"/>
+
+<xacro:body name="body_link" rpy="0 0 0" xyz="0 0 0" x="${body_link_x_dim}" y="${body_link_y_dim}" z="${body_link_z_dim}" density="${body_density}" />
+<xacro:body name="extra_weight_link" rpy="0 0 0" xyz="${extra_weight_x} 0 ${extra_weight_z}" x="${extra_weight_link_x_dim}" y="${extra_weight_link_y_dim}" z="${extra_weight_link_z_dim}" density="${extra_density}" />
+<xacro:wheel name="wheel1_link" rpy="${pi/2} 0 0" xyz="0 0 0" radius="${wheel_link_radius}" length="${wheel_link_length}" density="${wheel_density}" />
+<xacro:wheel name="wheel2_link" rpy="${pi/2} 0 0" xyz="0 0 0" radius="${wheel_link_radius}" length="${wheel_link_length}" density="${wheel_density}" />
+<xacro:caster name="caster_link" rpy="0 0 0" xyz="0 0 0" radius="${caster_link_radius}" density="${caster_density}" />
+
+<link name="dummy_link">
+</link>
+
+<joint name="dummy_joint" type="fixed">
+	<parent link="dummy_link"/>
+	<child link="body_link"/>
+</joint>
+
+<joint name="extra_mass_joint" type="fixed">
+	<parent link="body_link"/>
+	<child link="extra_weight_link"/>
+	<origin xyz="${-body_link_x_dim/4} 0 0" rpy="0 0 0"/>
+</joint>
+
+<joint name="right_wheel_joint" type="continuous">
+	<parent link="body_link"/>
+	<child link="wheel1_link"/>
+	<origin xyz="${wheel_link_x_location} ${-wheel_link_y_location_abs} ${wheel_link_z_location}" rpy="0 0 0"/>
+	<axis xyz="0 1 0"/>
+	<limit effort="1000" velocity="1000"/>
+	<dynamics damping="0.0001"/>
+</joint>
+
+<joint name="left_wheel_joint" type="continuous">
+	<parent link="body_link"/>
+	<child link="wheel2_link"/>
+	<origin xyz="${wheel_link_x_location} ${wheel_link_y_location_abs} ${wheel_link_z_location}" rpy="0 0 0"/>
+	<axis xyz="0 1 0"/>
+	<limit effort="1000" velocity="1000"/>
+	<dynamics damping="0.0001"/>
+</joint>
+
+<joint name="caster_joint" type="fixed">
+	<parent link="body_link"/>
+	<child link="caster_link"/>
+	<origin xyz="${caster_link_x_location} ${caster_link_y_location} ${caster_link_z_location}" rpy="0 0 0"/>
+	<limit effort="1000" velocity="1000"/>
+	<dynamics damping="1.0" friction="1.0"/>
+</joint>
+
+</robot>

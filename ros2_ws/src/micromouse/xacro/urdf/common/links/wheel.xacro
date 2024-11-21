@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+	<xacro:macro name="wheel" params="name density radius length xyz rpy">
+	<xacro:include filename="common/inertial/cylinder.xacro" />
+		<link name="${name}">
+			<visual>
+				<origin rpy="${rpy}" xyz="${xyz}"/>
+				<geometry>
+					<cylinder length="${length}" radius="${radius}"/>
+				</geometry>
+			</visual>
+			<collision>
+				<origin rpy="${rpy}" xyz="${xyz}"/>
+				<geometry>
+					<cylinder length="${length}" radius="${radius}"/>
+				</geometry>
+			</collision>
+			<xacro:cylinder density="${density}" radius="${radius}" length="${length}" />
+		</link>
+	</xacro:macro>
+</robot>

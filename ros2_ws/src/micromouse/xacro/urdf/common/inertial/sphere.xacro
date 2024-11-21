@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+	<xacro:macro name="sphere" params="density radius">
+		<xacro:property name="mass" value="${density*(4/3)*pi*radius*radius*radius}"/>
+		<xacro:property name="I" value="${(2/5)*mass*radius*radius}"/>
+		<inertial>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<mass value="${mass}"/>
+			<inertia ixx="${I}" ixy="0.0" ixz="0.0" iyy="${I}" iyz="0.0" izz="${I}"/>
+		</inertial>
+	</xacro:macro>
+</robot>

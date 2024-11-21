@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+	<xacro:macro name="box" params="density x y z">
+		<xacro:property name="mass" value="${body_density*x*y*z}"/>
+		<inertial>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<mass value="${mass}"/>
+			<inertia ixx="${(1.0/12.0)*mass*(y*y + z*z)}"
+			ixy="0.0"
+			ixz="0.0"
+			iyz="0.0"
+			iyy="${(1/12)*mass*(x*x + z*z)}"
+			izz="${(1/12)*mass*(y*y + x*x)}"
+			/>
+		</inertial>
+	</xacro:macro>
+</robot>

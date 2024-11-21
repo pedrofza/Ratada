@@ -1,0 +1,62 @@
+# Lidar 1
+- ros_topic_name: "lidar_left"
+  gz_topic_name: "/lidar_left"
+  gz_type_name: "gz.msgs.LaserScan"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  direction: GZ_TO_ROS
+
+# Lidar 2
+- ros_topic_name: "lidar_center"
+  gz_topic_name: "/lidar_center"
+  gz_type_name: "gz.msgs.LaserScan"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  direction: GZ_TO_ROS
+
+# Lidar 3
+- ros_topic_name: "lidar_right"
+  gz_topic_name: "/lidar_right"
+  gz_type_name: "gz.msgs.LaserScan"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  direction: GZ_TO_ROS
+
+# IMU
+- ros_topic_name: "imu"
+  gz_topic_name: "/imu"
+  gz_type_name: "gz.msgs.IMU"
+  ros_type_name: "sensor_msgs/msg/Imu"
+  direction: GZ_TO_ROS
+
+# Motor controller
+- ros_topic_name: "cmd_vel"
+  gz_topic_name: "/model/micromouse_robot/cmd_vel"
+  gz_type_name: "gz.msgs.Twist"
+  ros_type_name: "geometry_msgs/msg/Twist"
+  direction: ROS_TO_GZ
+
+# Odometry 1
+- ros_topic_name: "left_wheel_encoder"
+  gz_topic_name: "/left_wheel_encoder"
+  gz_type_name: "gz.msgs.Int32"
+  ros_type_name: "std_msgs/msg/Int32"
+  direction: GZ_TO_ROS
+
+# Odometry 2
+- ros_topic_name: "right_wheel_encoder"
+  gz_topic_name: "/right_wheel_encoder"
+  gz_type_name: "gz.msgs.Int32"
+  ros_type_name: "std_msgs/msg/Int32"
+  direction: GZ_TO_ROS
+
+# Micromouse start message
+- ros_topic_name: "micromouse"
+  gz_topic_name: "/micromouse/status"
+  gz_type_name: "gz.msgs.Boolean"
+  ros_type_name: "std_msgs/msg/Bool"
+  direction: GZ_TO_ROS
+
+# Simulation clock for nodes with "use_sim_time" parameter set to True
+- ros_topic_name: "clock"
+  gz_topic_name: "/clock"
+  gz_type_name: gz.msgs.Clock
+  ros_type_name: rosgraph_msgs/msg/Clock
+  direction: GZ_TO_ROS

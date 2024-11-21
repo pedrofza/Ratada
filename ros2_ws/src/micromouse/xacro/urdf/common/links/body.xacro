@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+	<xacro:macro name="body" params="name density x y z xyz rpy">
+		<link name="${name}">
+			<xacro:include filename="common/inertial/box.xacro" />
+			<visual>
+				<origin rpy="${rpy}" xyz="${xyz}"/>
+				<geometry>
+					<box size="${x} ${y} ${z}"/>
+				</geometry>
+			</visual>
+			<collision>
+				<origin rpy="${rpy}" xyz="${xyz}"/>
+				<geometry>
+					<box size="${x} ${y} ${z}"/>
+				</geometry>
+			</collision>
+			<xacro:box density="${density}" x="${x}" y="${y}" z="${z}" />
+		</link>
+	</xacro:macro>
+</robot>

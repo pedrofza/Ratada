@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+	<xacro:macro name="caster" params="name density radius xyz rpy">
+		<xacro:include filename="common/inertial/sphere.xacro" />
+
+		<link name="${name}">
+			<visual>
+				<origin rpy="${rpy}" xyz="${xyz}"/>
+				<geometry>
+					<sphere radius="${radius}"/>
+				</geometry>
+			</visual>
+			<collision>
+				<origin rpy="${rpy}" xyz="${xyz}"/>
+				<geometry>
+					<sphere radius="${radius}"/>
+				</geometry>
+			</collision>
+			<xacro:sphere radius="${radius}" density="${density}" />
+		</link>
+	</xacro:macro>
+</robot>
